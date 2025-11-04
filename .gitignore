@@ -1,0 +1,17 @@
+# Сборка
+/dist
+/out-tsc
+/.angular
+
+# Зависимости
+/node_modules
+
+# Логи и временное
+npm-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Редакторы
+/.idea
+/.vscode/*
+!/.vscode/extensions.json

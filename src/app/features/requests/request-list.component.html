@@ -1,0 +1,40 @@
+<h1 class="title">Заявки</h1>
+
+@if (isLoading()) {
+  <p class="hint">Загружаем…</p>
+} @else if (loadError(); as error) {
+  <p class="hint hint--error">{{ error }}</p>
+} @else {
+  @let requests = requests$ | async;
+
+  @if (!requests?.length) {
+    <p class="hint">Заявок пока нет.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Номер</th>
+          <th>Клиент</th>
+          <th>Телефон</th>
+          <th>Тема</th>
+          <th>Статус</th>
+          <th>Создана</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (request of requests; track request.id) {
+          <tr>
+            <td>
+              <a [routerLink]="[routeRequests, request.id]">{{ request.number }}</a>
+            </td>
+            <td>{{ request.clientName }}</td>
+            <td>{{ request.clientPhone | sdPhone }}</td>
+            <td>{{ request.subject }}</td>
+            <td><sd-status-badge [status]="request.status" /></td>
+            <td>{{ request.createdAt | date: 'dd.MM.yyyy' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+}

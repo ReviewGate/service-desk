@@ -1,0 +1,17 @@
+.title {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.hint {
+  color: var(--text-dim);
+}
+
+.hint--error {
+  color: var(--danger);
+}
+
+td a {
+  color: var(--accent);
+  text-decoration: none;
+}

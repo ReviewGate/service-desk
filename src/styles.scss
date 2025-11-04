@@ -1,0 +1,44 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #fff;
+  --line: #e3e6ea;
+  --text: #1d2330;
+  --text-dim: #6b7280;
+  --accent: #2563eb;
+  --danger: #c02626;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.5 -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  background: var(--surface);
+}
+
+th,
+td {
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+}
+
+th {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}

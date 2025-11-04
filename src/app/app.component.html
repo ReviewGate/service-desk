@@ -1,0 +1,11 @@
+<header class="topbar">
+  <a class="topbar__brand" [routerLink]="routeRequests">Панель заявок</a>
+
+  <nav class="topbar__nav">
+    <a [routerLink]="routeRequests" routerLinkActive="is-active">Заявки</a>
+  </nav>
+</header>
+
+<main class="page">
+  <router-outlet />
+</main>

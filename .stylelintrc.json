@@ -1,0 +1,14 @@
+{
+  "extends": ["stylelint-config-standard-scss"],
+  "rules": {
+    "selector-class-pattern": [
+      "^[a-z][a-z0-9]*(-[a-z0-9]+)*(__[a-z0-9]+(-[a-z0-9]+)*)?(--[a-z0-9]+(-[a-z0-9]+)*)?$",
+      { "message": "Класс именуется по БЭМ: block__element--modifier" }
+    ],
+    "max-nesting-depth": [3, { "ignore": ["blockless-at-rules"] }],
+    "scss/at-extend-no-missing-placeholder": true,
+    "declaration-property-value-disallowed-list": {
+      "/^(color|background-color|border-color)$/": ["/^#/", "/^rgb/"]
+    }
+  }
+}
