@@ -11,5 +11,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/requests/request-list.component').then((m) => m.RequestListComponent),
   },
+  {
+    path: `${ROUTE_REQUESTS}/:id`,
+    title: 'Заявка',
+    loadComponent: () =>
+      import('./features/requests/request-card.component').then((m) => m.RequestCardComponent),
+  },
   { path: '**', redirectTo: ROUTE_REQUESTS },
 ];

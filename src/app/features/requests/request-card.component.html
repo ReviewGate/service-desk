@@ -1,0 +1,62 @@
+@if (isLoading()) {
+  <p class="hint">Загружаем…</p>
+} @else if (loadError(); as error) {
+  <p class="hint hint--error">{{ error }}</p>
+} @else if (request(); as item) {
+  <h1 class="title">
+    Заявка {{ item.number }}
+    <sd-status-badge [status]="item.status" />
+  </h1>
+
+  <dl class="facts">
+    <dt>Клиент</dt>
+    <dd>{{ item.clientName }}</dd>
+
+    <dt>Телефон</dt>
+    <dd>{{ item.clientPhone | sdPhone }}</dd>
+
+    <dt>Тема</dt>
+    <dd>{{ item.subject }}</dd>
+
+    <dt>Создана</dt>
+    <dd>{{ item.createdAt | date: 'dd.MM.yyyy HH:mm' }}</dd>
+  </dl>
+
+  <label class="status-change">
+    Сменить статус
+    <select [ngModel]="item.status" (ngModelChange)="onStatusChange($event)">
+      @for (status of statuses; track status) {
+        <option [value]="status">{{ statusLabels[status] }}</option>
+      }
+    </select>
+  </label>
+
+  <section class="comments">
+    <h2>Комментарии</h2>
+
+    @if (!comments().length) {
+      <p class="hint">Пока никто ничего не написал.</p>
+    } @else {
+      <ul>
+        @for (comment of comments(); track comment.id) {
+          <li>
+            <span class="comments__author">{{ comment.authorName }}</span>
+            <span class="comments__date">{{ comment.createdAt | date: 'dd.MM HH:mm' }}</span>
+            <p>{{ comment.text }}</p>
+          </li>
+        }
+      </ul>
+    }
+
+    <form (ngSubmit)="onCommentSubmit()">
+      <textarea
+        [ngModel]="draft()"
+        (ngModelChange)="draft.set($event)"
+        name="draft"
+        rows="3"
+        placeholder="Что сделали по заявке"
+      ></textarea>
+      <button type="submit" [disabled]="!draft().trim()">Добавить</button>
+    </form>
+  </section>
+}
