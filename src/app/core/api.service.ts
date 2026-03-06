@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
-import { RequestComment, RequestStatus, ServiceRequest } from './models';
+import { RequestComment, RequestStatus, ServiceRequest, User } from './models';
 
 /**
  * Всё общение с бэкендом. Писалось в самом начале, поэтому список заявок держится
@@ -42,6 +42,10 @@ export class ApiService {
 
   addComment(requestId: number, text: string): Observable<RequestComment> {
     return this.http.post<RequestComment>(`/api/requests/${requestId}/comments`, { text });
+  }
+
+  getMe(): Observable<User> {
+    return this.http.get<User>('/api/me');
   }
 
   private replaceInCache(updated: ServiceRequest): void {
