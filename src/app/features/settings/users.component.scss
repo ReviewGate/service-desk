@@ -1,0 +1,20 @@
+.title {
+  margin: 0 0 16px;
+  font-size: 22px;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: var(--text-dim);
+}
+
+.hint {
+  color: var(--text-dim);
+}
+
+.hint--error {
+  color: var(--danger);
+}

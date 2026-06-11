@@ -3,6 +3,9 @@
 
   <nav class="topbar__nav">
     <a [routerLink]="routeRequests" routerLinkActive="is-active">Заявки</a>
+    @if (isAdmin()) {
+      <a [routerLink]="routeUsers" routerLinkActive="is-active">Сотрудники</a>
+    }
   </nav>
 </header>
 

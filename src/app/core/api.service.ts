@@ -44,6 +44,10 @@ export class ApiService {
     return this.http.post<RequestComment>(`/api/requests/${requestId}/comments`, { text });
   }
 
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>('/api/users');
+  }
+
   getMe(): Observable<User> {
     return this.http.get<User>('/api/me');
   }

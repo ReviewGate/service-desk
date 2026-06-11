@@ -1,0 +1,35 @@
+<h1 class="title">Сотрудники</h1>
+
+@if (isLoading()) {
+  <p class="hint">Загружаем…</p>
+} @else if (hasError()) {
+  <p class="hint hint--error">Список сотрудников недоступен.</p>
+} @else {
+  <label class="toggle">
+    <input type="checkbox" [checked]="withInactive()" (change)="onToggleInactive()" />
+    Показывать уволенных
+  </label>
+
+  @if (!visibleUsers().length) {
+    <p class="hint">Никого нет.</p>
+  } @else {
+    <table>
+      <thead>
+        <tr>
+          <th>Имя</th>
+          <th>Роль</th>
+          <th>Статус</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of visibleUsers(); track user.id) {
+          <tr>
+            <td>{{ user.name }}</td>
+            <td>{{ user.role === 'admin' ? 'Администратор' : 'Менеджер' }}</td>
+            <td>{{ user.isActive ? 'Работает' : 'Уволен' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  }
+}
