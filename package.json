@@ -9,7 +9,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
-    "lint:styles": "stylelint \"src/**/*.scss\""
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "prepare": "husky"
   },
   "dependencies": {
     "@angular/common": "^21.0.0",
@@ -31,6 +32,7 @@
     "@angular/compiler-cli": "^21.0.0",
     "@types/jasmine": "~5.1.4",
     "eslint": "^9.20.0",
+    "husky": "^9.1.7",
     "jasmine-core": "~5.4.0",
     "karma": "~6.4.4",
     "karma-chrome-launcher": "~3.2.0",
