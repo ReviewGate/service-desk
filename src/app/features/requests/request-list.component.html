@@ -25,7 +25,7 @@
         @for (request of requests; track request.id) {
           <tr>
             <td>
-              <a [routerLink]="[routeRequests, request.id]">{{ request.number }}</a>
+              <a [routerLink]="['/', routeRequests, request.id]">{{ request.number }}</a>
             </td>
             <td>{{ request.clientName }}</td>
             <td>{{ request.clientPhone | sdPhone }}</td>
