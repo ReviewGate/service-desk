@@ -4,13 +4,14 @@
   "description": "Внутренняя панель заявок сервисного центра",
   "private": true,
   "scripts": {
-    "start": "ng serve",
+    "start": "node server/api.mjs & ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "lint:styles": "stylelint \"src/**/*.scss\"",
-    "prepare": "husky"
+    "prepare": "husky",
+    "api": "node server/api.mjs"
   },
   "dependencies": {
     "@angular/common": "^21.0.0",
