@@ -1,1 +1,11 @@
-npm run lint
+npm run lint || exit 1
+
+# Быстрое ревью того, что коммичу (--staged): вижу находки в момент коммита.
+# Блокирует только blocker; полное судейство — на пуше (.husky/pre-push).
+code=0
+reviewgate review --staged --fast --fail-on blocker || code=$?
+case $code in
+  0) ;;
+  2) echo "reviewgate: blocker findings — commit stopped" >&2; exit 1 ;;
+  *) echo "reviewgate: the review did not run (failure) — commit allowed unchecked" >&2 ;;
+esac

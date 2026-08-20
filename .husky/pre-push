@@ -1,0 +1,10 @@
+# .husky/pre-push — полное ревью того, что уходит: от origin/main до вершины.
+# Блокирует ТОЛЬКО код 2 (порог не пройден). Код 1 — сбой самого ревью (сеть,
+# ключ): предупредить и пропустить — сломанный ревьюер не должен запирать работу.
+code=0
+reviewgate review --refs origin/main --fail-on major || code=$?
+case $code in
+  0) ;;
+  2) echo "reviewgate: blocking findings — push stopped" >&2; exit 1 ;;
+  *) echo "reviewgate: the review did not run (failure) — push allowed unchecked" >&2 ;;
+esac
