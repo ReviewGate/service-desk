@@ -14,28 +14,36 @@
       (input)="onQueryInput($any($event.target).value)"
     />
 
-    <select class="toolbar__filter" (change)="onStatusFilter($any($event.target).value)">
+    <select
+      class="toolbar__filter"
+      [value]="statusFilter()"
+      (change)="onStatusFilter($any($event.target).value)"
+    >
       <option value="all">Все статусы</option>
       @for (status of statuses; track status) {
-        <option [value]="status" [selected]="statusFilter() === status">
-          {{ statusLabels[status] }}
-        </option>
+        <option [value]="status">{{ statusLabels[status] }}</option>
       }
     </select>
 
-    @if (found(); as filtered) {
+    @if (found(); as outcome) {
       <span class="toolbar__found">
-        Найдено: {{ filtered.length }} · обновлено {{ foundAt() }}
+        Найдено: {{ outcome.items.length }} · обновлено {{ outcome.at | date: 'HH:mm' }}
         <button type="button" class="toolbar__reset" (click)="onResetFilters()">сбросить</button>
       </span>
     }
   </div>
 
-  @let rows = found() ?? (requests$ | async);
+  @if (search().kind === 'error') {
+    <p class="hint hint--error">Поиск не сработал. Попробуйте ещё раз или сбросьте фильтр.</p>
+  } @else if (search().kind === 'searching') {
+    <p class="hint">Ищем…</p>
+  }
 
-  @if (!rows?.length) {
+  @let rows = found()?.items ?? (requests$ | async);
+
+  @if (search().kind !== 'error' && search().kind !== 'searching' && !rows?.length) {
     <p class="hint">Заявок пока нет.</p>
-  } @else {
+  } @else if (search().kind !== 'error' && search().kind !== 'searching') {
     <table>
       <thead>
         <tr>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 
@@ -34,6 +34,13 @@ export class ApiService {
     return this.http
       .patch<ServiceRequest>(`/api/requests/${id}`, { status })
       .pipe(tap((updated) => this.replaceInCache(updated)));
+  }
+
+  /** Поиск по заявкам. Параметры кодирует HttpParams — спецсимволы не ломают запрос. */
+  searchRequests(query: string, status: RequestStatus | 'all'): Observable<ServiceRequest[]> {
+    const params = new HttpParams().set('query', query).set('status', status);
+
+    return this.http.get<ServiceRequest[]>('/api/requests/search', { params });
   }
 
   getComments(requestId: number): Observable<RequestComment[]> {
