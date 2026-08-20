@@ -5,9 +5,35 @@
 } @else if (loadError(); as error) {
   <p class="hint hint--error">{{ error }}</p>
 } @else {
-  @let requests = requests$ | async;
+  <div class="toolbar">
+    <input
+      class="toolbar__search"
+      type="search"
+      placeholder="Клиент, номер или тема"
+      [value]="query()"
+      (input)="onQueryInput($any($event.target).value)"
+    />
 
-  @if (!requests?.length) {
+    <select class="toolbar__filter" (change)="onStatusFilter($any($event.target).value)">
+      <option value="all">Все статусы</option>
+      @for (status of statuses; track status) {
+        <option [value]="status" [selected]="statusFilter() === status">
+          {{ statusLabels[status] }}
+        </option>
+      }
+    </select>
+
+    @if (found(); as filtered) {
+      <span class="toolbar__found">
+        Найдено: {{ filtered.length }} · обновлено {{ foundAt() }}
+        <button type="button" class="toolbar__reset" (click)="onResetFilters()">сбросить</button>
+      </span>
+    }
+  </div>
+
+  @let rows = found() ?? (requests$ | async);
+
+  @if (!rows?.length) {
     <p class="hint">Заявок пока нет.</p>
   } @else {
     <table>
@@ -22,7 +48,7 @@
         </tr>
       </thead>
       <tbody>
-        @for (request of requests; track request.id) {
+        @for (request of rows; track request.id) {
           <tr>
             <td>
               <a [routerLink]="['/', routeRequests, request.id]">{{ request.number }}</a>
