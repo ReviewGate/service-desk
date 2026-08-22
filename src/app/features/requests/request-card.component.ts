@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, DestroyRef, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -30,6 +30,13 @@ export class RequestCardComponent {
 
   protected readonly statuses = STATUS_ORDER;
   protected readonly statusLabels = STATUS_LABELS;
+
+  protected readonly clientTelHref = computed(() => {
+    const phone = this.request()?.clientPhone;
+    const digits = phone?.replace(/[^\d+]/g, '');
+
+    return digits ? `tel:${digits}` : null;
+  });
 
   constructor() {
     // Компонент пересоздаётся на каждой заявке (переиспользования роутов у нас нет),

@@ -13,7 +13,12 @@
     <dd>{{ item.clientName }}</dd>
 
     <dt>Телефон</dt>
-    <dd>{{ item.clientPhone | sdPhone }}</dd>
+    <dd>
+      {{ item.clientPhone | sdPhone }}
+      @if (clientTelHref(); as telHref) {
+        <a class="call-button" [href]="telHref">Позвонить клиенту</a>
+      }
+    </dd>
 
     <dt>Тема</dt>
     <dd>{{ item.subject }}</dd>
