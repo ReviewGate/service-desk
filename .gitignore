@@ -15,3 +15,6 @@ yarn-error.log*
 /.idea
 /.vscode/*
 !/.vscode/extensions.json
+
+# Локальные настройки агента (разрешения клиента) — не часть проекта
+/.claude/
