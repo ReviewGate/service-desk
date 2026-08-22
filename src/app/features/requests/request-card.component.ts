@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ApiService } from '../../core/api.service';
 import { RequestComment, RequestStatus, ServiceRequest } from '../../core/models';
-import { PhonePipe } from '../../shared/phone.pipe';
+import { PhonePipe, toTelHref } from '../../shared/phone.pipe';
 import { STATUS_LABELS, STATUS_ORDER } from './statuses';
 import { StatusBadgeComponent } from './status-badge.component';
 
@@ -31,12 +31,7 @@ export class RequestCardComponent {
   protected readonly statuses = STATUS_ORDER;
   protected readonly statusLabels = STATUS_LABELS;
 
-  protected readonly clientTelHref = computed(() => {
-    const phone = this.request()?.clientPhone;
-    const digits = phone?.replace(/[^\d+]/g, '');
-
-    return digits ? `tel:${digits}` : null;
-  });
+  protected readonly clientTelHref = computed(() => toTelHref(this.request()?.clientPhone));
 
   constructor() {
     // Компонент пересоздаётся на каждой заявке (переиспользования роутов у нас нет),
